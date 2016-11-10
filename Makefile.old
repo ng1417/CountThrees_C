@@ -1,0 +1,24 @@
+#Nicole Horner CS178 Makefile for ServerCountThrees assignment
+
+ServerCountThrees : readInt32BitLE.o ServerCountThrees.o
+	cc -o ServerCountThrees.o readInt32BitLE.o 
+
+ServerCountThrees.o : ServerCountThrees.c readInt32BitLE.h
+	cc -c ServerCountThrees.c
+
+readInt32BitLE.o : readInt32BitLE.c readInt32BitLE.h
+	cc -c readInt32BitLE.c
+
+.PHONY : test
+test : ServerCountThrees threesData.bin
+	mkdir test
+	mv ServerCountThrees test/
+	cp threesData.bin test/.
+	./test/ServerCountThrees
+
+.PHONY : clean
+clean : 
+	rm -f ServerCountThrees
+	rm  -fr test
+
+ 
